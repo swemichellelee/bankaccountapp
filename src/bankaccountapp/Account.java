@@ -1,24 +1,35 @@
 package bankaccountapp;
 
 public abstract class Account implements IRate {
-    // abstract - we will not be able to create objects from the Account class, but we can create objects from classes that inherent from Account
-    // super class; parent class
-    // whatever is inside IRate will now be included in Account, Checking and Savings will have properties inside both Account and Interest Rate
-
-    // list common properties for savings and checking accounts
+    // Common properties for Savings and Checking accounts
     String name;
     String sSN;
     double balance;
+    static int index = 10000;
     String accountNumber;
     double rate;
 
-    // constructor to set base properties and initialize the account
+    // Constructor to set base properties and initialize the Account
     public Account(String name, String sSN, double initDeposit) {
         this.name = name;
         this.sSN = sSN;
         balance = initDeposit;
         System.out.println("NAME: " + name + " SSN: " + sSN + " BALANCE: $" + balance);
+
+        // Set Account Number
+        // Counter for 5 Digit Unique ID
+        index++;
+        this.accountNumber = setAccountNumber();
+    }
+    // Last two digits of SSN
+    private String setAccountNumber() {
+        String lastTwoOfSSN = sSN.substring(sSN.length() - 2, sSN.length());
+        // Unique 5 Digit ID
+        int uniqueID = index;
+        // Random 3 Digit Code
+        int randomNumber = (int) (Math.random() * Math.pow(10, 3));
+        return lastTwoOfSSN + uniqueID + randomNumber;
     }
 
-    // list common methods (deposit, withdraw, transfer, show info)
+    // List common methods (deposit, withdraw, transfer, show info)
 }
