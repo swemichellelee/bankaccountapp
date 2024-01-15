@@ -14,13 +14,16 @@ public abstract class Account implements IRate {
         this.name = name;
         this.sSN = sSN;
         balance = initDeposit;
-        System.out.println("NAME: " + name + " SSN: " + sSN + " BALANCE: $" + balance);
 
         // Set Account Number
         // Counter for 5 Digit Unique ID
         index++;
         this.accountNumber = setAccountNumber();
+        setRate();
     }
+
+    public abstract void setRate();
+
     // Last two digits of SSN
     private String setAccountNumber() {
         String lastTwoOfSSN = sSN.substring(sSN.length() - 2, sSN.length());
@@ -32,4 +35,12 @@ public abstract class Account implements IRate {
     }
 
     // List common methods (deposit, withdraw, transfer, show info)
+    public void showInfo() {
+        System.out.println(
+                "NAME: " + name +
+                "\n ACCOUNT NUMBER: " + accountNumber +
+                "\n BALANCE: " + balance +
+                "\n RATE: " + rate + "%"
+        );
+    }
 }
