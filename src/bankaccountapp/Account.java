@@ -2,12 +2,12 @@ package bankaccountapp;
 
 public abstract class Account implements IRate {
     // Common properties for Savings and Checking accounts
-    String name;
-    String sSN;
-    double balance;
-    static int index = 10000;
-    String accountNumber;
-    double rate;
+    private String name;
+    private String sSN;
+    private double balance;
+    private static int index = 10000;
+    protected String accountNumber;
+    protected double rate;
 
     // Constructor to set base properties and initialize the Account
     public Account(String name, String sSN, double initDeposit) {
@@ -34,7 +34,33 @@ public abstract class Account implements IRate {
         return lastTwoOfSSN + uniqueID + randomNumber;
     }
 
-    // List common methods (deposit, withdraw, transfer, show info)
+    public void compound() {
+        double accruedInterest = balance * (rate/100);
+        balance = balance + accruedInterest;
+        System.out.println("Accrued Interest: $" + accruedInterest);
+        printBalance();
+    }
+
+    // List common methods - transactions
+    public void deposit(double amount) {
+        balance = balance + amount;
+        System.out.println("Depositing $ " + amount);
+        printBalance();
+    }
+    public void withdraw(double amount) {
+        balance = balance - amount;
+        System.out.println("Withdrawing $ " + amount);
+        printBalance();
+    }
+    public void transfer(String toWhere, double amount) {
+        balance = balance - amount;
+        System.out.println("Transferring $ " + amount + " to " + toWhere);
+        printBalance();
+    }
+    public void printBalance() {
+        System.out.println("Your balance is now: $" + balance);
+    }
+
     public void showInfo() {
         System.out.println(
                 "NAME: " + name +
